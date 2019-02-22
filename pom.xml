@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.wuxia.parent</groupId>
-        <artifactId>parent2018</artifactId>
+        <artifactId>parent2019</artifactId>
         <version>2.3.0</version>
         <!--<artifactId>parent2017</artifactId>-->
         <!--<version>1.5.3</version>-->
