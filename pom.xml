@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.wuxia.parent</groupId>
+        <artifactId>parent2018</artifactId>
+        <version>2.3.0</version>
+        <!--<artifactId>parent2017</artifactId>-->
+        <!--<version>1.5.3</version>-->
+        <relativePath>../wuxia-parent</relativePath>
+    </parent>
+
+    <artifactId>wuxia-aliyun-components</artifactId>
+    <name>WUXIA Aliyun Components</name>
+    <description>WUXIA Aliyun Components Project</description>
+    <version>2.3.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <url>https://github.com/wuxiatech/wuxia-aliyun-components</url>
+    <properties>
+        <wuxia-common.version>2.3.0-SNAPSHOT</wuxia-common.version>
+        <!-- about aliyun -->
+        <aliyun-oss.version>3.4.1</aliyun-oss.version>
+        <aliyun-openservices.version>OTS-2.0.4</aliyun-openservices.version>
+        <aliyun-ons.version>1.8.0.Final</aliyun-ons.version>
+        <aliyun-mns.version>1.1.8.6</aliyun-mns.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>cn.wuxia.common</groupId>
+            <artifactId>wuxia-common</artifactId>
+            <version>${wuxia-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>${aliyun-oss.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>aliyun-openservices</artifactId>
+            <version>${aliyun-openservices.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>ons-client</artifactId>
+            <version>${aliyun-ons.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.mns</groupId>
+            <artifactId>aliyun-sdk-mns</artifactId>
+            <version>${aliyun-mns.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <optional>true</optional>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-core -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.5.0</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.1.0</version>
+            <optional>true</optional>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.aliyun</groupId>-->
+        <!--<artifactId>alicom-mns-receive-sdk</artifactId>-->
+        <!--<version>1.0.0</version>-->
+        <!--<optional>true</optional>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/QLExpress -->
+        <!-- 自定义规则引擎的扩张 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>QLExpress</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <!-- Test lib -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <!-- source attach plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- release plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <arguments>-Prelease -Dmaven.test.skip=true</arguments>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <groupId>cn.wuxia.common</groupId>
+</project>
