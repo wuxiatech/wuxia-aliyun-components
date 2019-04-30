@@ -5,20 +5,17 @@
     <parent>
         <groupId>cn.wuxia.parent</groupId>
         <artifactId>parent2019</artifactId>
-        <version>2.3.2</version>
-        <!--<artifactId>parent2017</artifactId>-->
-        <!--<version>1.5.3</version>-->
-        <relativePath>../wuxia-parent</relativePath>
+        <version>2.3.3</version>
     </parent>
 
     <artifactId>wuxia.aliyun-component</artifactId>
     <name>WUXIA Aliyun Components</name>
     <description>WUXIA Aliyun Components Project</description>
-    <version>2.3.2</version>
+    <version>${project.parent.version}</version>
     <packaging>jar</packaging>
     <url>https://github.com/wuxiatech/wuxia-aliyun-components</url>
     <properties>
-        <wuxia-common.version>2.3.2</wuxia-common.version>
+        <wuxia-common.version>${project.parent.version}</wuxia-common.version>
         <!-- about aliyun -->
         <aliyun-oss.version>3.4.1</aliyun-oss.version>
         <aliyun-openservices.version>OTS-2.0.4</aliyun-openservices.version>
