@@ -5,13 +5,13 @@
     <parent>
         <groupId>cn.wuxia.parent</groupId>
         <artifactId>parent2019</artifactId>
-        <version>2.3.4</version>
+        <version>2.3.7</version>
     </parent>
 
     <artifactId>wuxia.aliyun-component</artifactId>
     <name>WUXIA Aliyun Components</name>
     <description>WUXIA Aliyun Components Project</description>
-    <version>${project.parent.version}</version>
+    <version>2.3.7</version>
     <packaging>jar</packaging>
     <url>https://github.com/wuxiatech/wuxia-aliyun-components</url>
     <properties>
@@ -38,19 +38,16 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.aliyun.openservices</groupId>
             <artifactId>aliyun-openservices</artifactId>
             <version>${aliyun-openservices.version}</version>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.aliyun.openservices</groupId>
             <artifactId>ons-client</artifactId>
             <version>${aliyun-ons.version}</version>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.aliyun.mns</groupId>
@@ -62,20 +59,17 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-            <optional>true</optional>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-core -->
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>3.5.0</version>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
             <version>1.1.0</version>
-            <optional>true</optional>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>com.aliyun</groupId>-->
