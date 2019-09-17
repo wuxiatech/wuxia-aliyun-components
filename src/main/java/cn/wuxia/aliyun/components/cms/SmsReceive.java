@@ -1,19 +1,10 @@
 package cn.wuxia.aliyun.components.cms;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 //import com.alicom.mns.tools.DefaultAlicomMessagePuller;
 //import com.alicom.mns.tools.MessageListener;
-import com.aliyun.mns.model.Message;
-import com.google.gson.Gson;
 
 /**
  * 只能用于接收云通信的消息，不能用于接收其他业务的消息
@@ -21,8 +12,8 @@ import com.google.gson.Gson;
  */
 public class SmsReceive {
 
-	private static Log logger=LogFactory.getLog(SmsReceive.class);
-	
+    private static Log logger = LogFactory.getLog(SmsReceive.class);
+
 //	static class MyMessageListener implements MessageListener{
 //		private Gson gson=new Gson();
 //
@@ -89,6 +80,5 @@ public class SmsReceive {
 //		puller.startReceiveMsg(accessKeyId,accessKeySecret, messageType, queueName, new MyMessageListener());
 //    }
 
-	
-	
+
 }

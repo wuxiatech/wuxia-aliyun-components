@@ -10,15 +10,17 @@
 package cn.wuxia.aliyun.components.oss;
 
 import cn.wuxia.common.util.DateUtil;
+import cn.wuxia.common.util.EncodeUtils;
 import cn.wuxia.common.util.StringUtil;
 import com.aliyun.oss.ClientConfiguration;
 import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.common.auth.DefaultCredentialProvider;
 import com.aliyun.oss.model.*;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,47 +38,8 @@ public class OSSUtils {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    private String accessKeyId;
-
-    private String accessKeySecret;
-
-    private String endpoint;
-
-    private ClientConfiguration conf;
-
     public OSSClient client;
 
-    public String getAccessKeyId() {
-        return accessKeyId;
-    }
-
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
-    }
-
-    public String getAccessKeySecret() {
-        return accessKeySecret;
-    }
-
-    public void setAccessKeySecret(String accessKeySecret) {
-        this.accessKeySecret = accessKeySecret;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public ClientConfiguration getConf() {
-        return conf;
-    }
-
-    public void setConf(ClientConfiguration conf) {
-        this.conf = conf;
-    }
 
     public OSSClient getClient() {
         return client;
@@ -96,15 +59,8 @@ public class OSSUtils {
      * @author Wind.Zhao
      * @date 2015/05/18
      */
-    public OSSUtils(String endpoint, String accessKeyId, String accessKeySecret) throws Exception {
-        this.endpoint = endpoint;
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
-        if (StringUtil.isNotBlank(accessKeyId) && StringUtils.isNotBlank(accessKeySecret)) {
-            if (StringUtil.isNotBlank(endpoint)) {
-                client = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-            }
-        }
+    public OSSUtils(String endpoint, String accessKeyId, String accessKeySecret) {
+        this(endpoint, accessKeyId, accessKeySecret, null);
     }
 
     /**
@@ -117,17 +73,14 @@ public class OSSUtils {
      * @author Wind.Zhao
      * @date 2015/05/18
      */
-    public OSSUtils(String endpoint, String accessKeyId, String accessKeySecret, ClientConfiguration conf) throws Exception {
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
-        this.conf = conf;
-        if (StringUtil.isNotBlank(accessKeyId) && StringUtils.isNotBlank(accessKeySecret)) {
-            if (StringUtil.isNotBlank(endpoint) && null != conf) {
-                client = new OSSClient(endpoint, accessKeyId, accessKeySecret, conf);
-            } else {
-                client = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-            }
-        }
+    public OSSUtils(String endpoint, String accessKeyId, String accessKeySecret, ClientConfiguration conf) {
+
+        Assert.notNull(endpoint, "endpoint不能为空");
+        Assert.notNull(accessKeyId, "accessKeyId不能为空");
+        Assert.notNull(accessKeySecret, "accessKeySecret不能为空");
+
+        client = new OSSClient(endpoint, new DefaultCredentialProvider(accessKeyId, accessKeySecret), conf);
+
     }
 
     /**
@@ -388,12 +341,13 @@ public class OSSUtils {
             meta.setContentLength(file.length());
             // 上传Object.
             PutObjectResult result = client.putObject(bucketName, key + fileName, file, meta);
+            // 获取存储空间的访问权限。
             String url = uri.getScheme() + "://" + bucketName + "." + uri.getAuthority();
             retMap.put("code", "00000");
             retMap.put("object", result);
             try {
                 retMap.put("url", URLDecoder.decode(url, "utf-8"));
-                retMap.put("key", URLDecoder.decode("/" + key + fileName, "utf-8"));
+                retMap.put("key", URLDecoder.decode(key + fileName, "utf-8"));
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 logger.error("创建文件对象成功，返回路径异常：" + e.getMessage());
@@ -440,7 +394,7 @@ public class OSSUtils {
             retMap.put("object", result);
             try {
                 retMap.put("url", URLDecoder.decode(url, "utf-8"));
-                retMap.put("key", URLDecoder.decode("/" + key + fileName, "utf-8"));
+                retMap.put("key", URLDecoder.decode(key + fileName, "utf-8"));
             } catch (UnsupportedEncodingException e) {
                 logger.error("创建文件对象成功，返回路径异常：" + e.getMessage());
                 retMap.put("code", "00001");
@@ -1014,6 +968,27 @@ public class OSSUtils {
             retMap.put("msg", "上传文件失败，oss client 不存在，请先进行实例化！");
         }
         return retMap;
+    }
+
+    /**
+     * 1天的有效期
+     *
+     * @param bucketName
+     * @param key
+     * @return
+     */
+    public String getAccessUrl(String bucketName, String key) {
+        AccessControlList acl = client.getBucketAcl(bucketName);
+        if ("/".equals(key.subSequence(0, 1))) {
+            key = key.substring(1, key.length());
+        }
+        if (acl.getCannedACL() == CannedAccessControlList.Private) {
+            return EncodeUtils.urlDecode(client.generatePresignedUrl(bucketName, key, DateUtil.addDays(new Date(), 1)).toString());
+        } else {
+            URI uri = client.getEndpoint();
+            String url = uri.getScheme() + "://" + bucketName + "." + uri.getAuthority();
+            return url + "/" + key;
+        }
     }
 
 }
