@@ -18,7 +18,7 @@ import cn.wuxia.aliyun.components.ons.producer.bean.UnorderProducerBean;
 import cn.wuxia.common.exception.ValidateException;
 import cn.wuxia.common.util.ListUtil;
 import cn.wuxia.common.util.MapUtil;
-import cn.wuxia.common.util.ValidatorUtil;
+import cn.wuxia.common.validator.ValidatorUtil;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

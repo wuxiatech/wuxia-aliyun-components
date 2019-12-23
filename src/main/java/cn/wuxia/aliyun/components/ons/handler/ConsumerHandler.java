@@ -19,6 +19,7 @@ import cn.wuxia.common.exception.ValidateException;
 import cn.wuxia.common.spring.SpringContextHolder;
 import cn.wuxia.common.util.*;
 import cn.wuxia.common.util.reflection.ReflectionUtil;
+import cn.wuxia.common.validator.ValidatorUtil;
 import com.aliyun.openservices.ons.api.Action;
 import com.aliyun.openservices.ons.api.ConsumeContext;
 import com.aliyun.openservices.ons.api.Message;

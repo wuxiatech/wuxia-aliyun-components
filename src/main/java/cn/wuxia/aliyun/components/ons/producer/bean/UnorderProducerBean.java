@@ -20,7 +20,7 @@ import com.aliyun.openservices.ons.api.exception.ONSClientException;
 import cn.wuxia.aliyun.components.ons.bean.MessageBean;
 import cn.wuxia.aliyun.components.ons.exception.MQException;
 import cn.wuxia.common.exception.ValidateException;
-import cn.wuxia.common.util.ValidatorUtil;
+import cn.wuxia.common.validator.ValidatorUtil;
 
 
 public class UnorderProducerBean extends BasicProducerBean {
