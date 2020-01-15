@@ -9,7 +9,7 @@
 package cn.wuxia.aliyun.components.ons.producer.bean;
 
 import cn.wuxia.aliyun.components.ons.bean.BasicONSBean;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class ProducerONSBean extends BasicONSBean {
 

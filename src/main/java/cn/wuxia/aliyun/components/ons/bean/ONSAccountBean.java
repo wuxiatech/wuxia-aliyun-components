@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.collections4.MapUtils;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import cn.wuxia.common.util.reflection.BeanUtil;
 

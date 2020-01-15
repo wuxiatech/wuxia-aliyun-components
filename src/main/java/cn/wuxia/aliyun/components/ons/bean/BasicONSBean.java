@@ -9,7 +9,7 @@
 package cn.wuxia.aliyun.components.ons.bean;
 
 import com.aliyun.openservices.ons.api.bean.Subscription;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class BasicONSBean extends Subscription {
 
